@@ -1,1 +1,6 @@
 venv/
+.vscode/
+.gitignore
+reqbuddy.egg-info/
+reqbuddy/__pycache__/
+requirements.txt
