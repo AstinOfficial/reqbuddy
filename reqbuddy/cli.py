@@ -1,5 +1,5 @@
 import argparse
-from .core import get_requirement, find_requirement
+from .main import get_requirement, find_requirement
 
 def main():
     parser = argparse.ArgumentParser(description="ReqBuddy CLI")

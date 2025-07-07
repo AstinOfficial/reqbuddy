@@ -1,1 +1,3 @@
-# reqbuddy
+======================
+📦 reqbuddy - Python Package Manager
+======================

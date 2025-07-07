@@ -2,7 +2,7 @@ import os
 import warnings
 from typing import List, Optional
 import importlib.metadata
-import numpy
+import sys
 
 def get_requirement(
     path: Optional[str] = None,
@@ -30,8 +30,21 @@ def get_requirement(
         path = os.path.join(os.getcwd(), "requirements.txt")
 
     if not os.path.exists(path):
-        warnings.warn(f"'{path}' not found.")
-        return None
+            
+            ##### Detect if called from CLI#####
+            is_cli = sys.argv[0].endswith(".py") or os.path.basename(sys.argv[0]) in {"reqbuddy"}
+
+            message = (
+                f"'{path}' not found.\n"
+                f"{'👉 Use: reqbuddy find' if is_cli else '👉 Use `find_requirement()` to generate it.'}"
+            )
+
+            if is_cli:
+                print(message, file=sys.stderr)
+            else:
+                warnings.warn(message, stacklevel=2)
+
+            return None
 
     try:
         with open(path, "r", encoding="utf-8") as f:
