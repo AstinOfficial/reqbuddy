@@ -8,6 +8,8 @@
 
 A lightweight Python utility for managing `requirements.txt` files and discovering installed packages. It includes both a Python API and CLI for convenience.
 
+📌 **Available on PyPI**: [https://pypi.org/project/reqbuddy/](https://pypi.org/project/reqbuddy/)
+
 
 ## ✨ Features
 
