@@ -1,9 +1,9 @@
 [project]
 name = "reqbuddy"
 version = "0.1.0"
-description = "A simple utility to parse and clean requirements.txt files"
+description = "Lightweight tool to extract and analyze Python requirements."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = { text = "MIT" }
 authors = [
   { name = "Astin Biju", email = "astinofficial44@gmail.com" }

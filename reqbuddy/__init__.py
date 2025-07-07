@@ -1,2 +1,3 @@
-from .core import get_requirement
-__all__ = ["get_requirement"]
+from .core import get_requirement, find_requirement
+
+__all__ = ["get_requirement", "find_requirement"]

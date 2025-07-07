@@ -1,10 +1,12 @@
 import os
 import warnings
 from typing import List, Optional
+import importlib.metadata
+import numpy
 
 def get_requirement(
-    requirements_path: Optional[str] = None,
-    strip_versions: bool = False,
+    path: Optional[str] = None,
+    strip: bool = False,
     deduplicate: bool = True
 ) -> Optional[List[str]]:
     """
@@ -12,9 +14,9 @@ def get_requirement(
 
     Parameters:
     ----------
-    requirements_path : str or None
+    path : str or None
         Path to the requirements.txt file. If None, looks for it in the current directory.
-    strip_versions : bool
+    strip : bool
         If True, strips version specifiers (e.g., 'requests==2.0' → 'requests')
     deduplicate : bool
         If True, removes duplicate packages
@@ -24,18 +26,18 @@ def get_requirement(
     list[str] or None
         List of requirement lines or None if file not found.
     """
-    if requirements_path is None:
-        requirements_path = os.path.join(os.getcwd(), "requirements.txt")
+    if path is None:
+        path = os.path.join(os.getcwd(), "requirements.txt")
 
-    if not os.path.exists(requirements_path):
-        warnings.warn(f"'{requirements_path}' not found.")
+    if not os.path.exists(path):
+        warnings.warn(f"'{path}' not found.")
         return None
 
     try:
-        with open(requirements_path, "r", encoding="utf-8") as f:
+        with open(path, "r", encoding="utf-8") as f:
             lines = f.read().splitlines()
     except UnicodeDecodeError:
-        with open(requirements_path, "r", encoding="latin-1") as f:
+        with open(path, "r", encoding="latin-1") as f:
             lines = f.read().splitlines()
 
     requirements = []
@@ -47,13 +49,13 @@ def get_requirement(
         if not line or line.startswith("#"):
             continue
 
-        # Remove inline comments
+        
         if " #" in line:
             line = line.split(" #", 1)[0].strip()
 
-        # Strip version if required
+        
         name = line
-        if strip_versions:
+        if strip:
             for op in version_operators:
                 if op in line:
                     name = line.split(op, 1)[0].strip()
@@ -67,3 +69,36 @@ def get_requirement(
         requirements.append(line)
 
     return requirements
+
+
+
+
+
+def find_requirement(strip: bool = False, save: bool = True) -> List[str]:
+    """
+    Returns a list of installed packages in the current Python environment,
+    and optionally saves them to a requirements.txt file.
+
+    Parameters:
+    ----------
+        strip (bool): If True, only package names are returned without version numbers.
+                               If False, returns package names with versions (e.g., 'package==version').
+        save (bool): If True, saves the output to 'requirements.txt'. Defaults to True.
+
+    Returns:
+    -------
+        List[str]: A list of installed packages as strings.
+    """
+    packages = []
+    for dist in importlib.metadata.distributions():
+        name = dist.metadata["Name"]
+        version = dist.version
+        pkg_str = name if strip else f"{name}=={version}"
+        packages.append(pkg_str)
+
+    if save:
+        with open("requirements.txt", "w") as f:
+            for pkg in packages:
+                f.write(pkg + "\n")
+
+    return packages

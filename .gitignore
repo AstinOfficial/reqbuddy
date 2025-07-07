@@ -4,3 +4,4 @@ venv/
 reqbuddy.egg-info/
 reqbuddy/__pycache__/
 requirements.txt
+tests/__pycache__/
