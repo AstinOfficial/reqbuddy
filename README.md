@@ -48,6 +48,33 @@ print(reqs)
 ## ✅ Requirements
 - Python 3.8+
 
+## 🛠️ For Developers: Automated Releasing
+
+This project includes a helpful script: `release.sh`
+
+### ✨ What it does:
+
+- ✅ Bumps the version in `pyproject.toml`
+- 📝 Updates `CHANGELOG.md` with your message
+- 🏷 Creates a Git tag (e.g., `v0.1.7`)
+- 🚀 Pushes the tag and code to GitHub
+- 📦 Triggers GitHub Actions to publish to PyPI
+- 📢 Creates a GitHub Release page
+- ✅ Confirms the new version is live on PyPI
+
+### 🧪 How to use it
+
+```bash
+./release.sh 0.1.7 "Add CLI command and improve requirement detection"
+   ```
+Make sure:
+
+- You’ve installed the GitHub CLI
+- You’re authenticated (`gh auth login`)
+
+
+
+
 ## 📝 License
 MIT License
 
