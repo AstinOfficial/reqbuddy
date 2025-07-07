@@ -1,4 +1,4 @@
-# 📦 reqbuddy – Python Requirement File Helper
+# 📦 reqbuddy – Python Requirement File Helpers
 
 ![PyPI](https://img.shields.io/pypi/v/reqbuddy?color=blue)
 ![Python](https://img.shields.io/pypi/pyversions/reqbuddy)
