@@ -2,8 +2,9 @@
 
 ![PyPI](https://img.shields.io/pypi/v/reqbuddy?color=blue)
 ![Python](https://img.shields.io/pypi/pyversions/reqbuddy)
-![License](https://img.shields.io/github/license/astin-biju/reqbuddy)
-![Downloads](https://img.shields.io/pypi/dm/reqbuddy?label=pip%20downloads)
+![License](https://img.shields.io/github/license/AstinOfficial/reqbuddy)
+
+
 
 A lightweight Python utility for managing `requirements.txt` files and discovering installed packages. It includes both a Python API and CLI for convenience.
 
