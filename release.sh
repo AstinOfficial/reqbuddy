@@ -70,8 +70,8 @@ FOUND="false"
 
 for i in $(seq 1 $RETRIES); do
   echo "🔍 Checking PyPI (attempt $i)..."
-  VERSION_FOUND=$(curl -s $PYPI_CHECK_URL | grep -o "\"$VERSION\"" || true)
-  echo "🔍 the got version : $VERSION_FOUND"
+  VERSION_FOUND=$(curl -s "$PYPI_CHECK_URL" | jq -r --arg VERSION "$VERSION" '.releases[$VERSION] | if . then $VERSION else empty end')
+  echo "🔍 The Version Found : $VERSION_FOUND"
   if [[ "$VERSION_FOUND" == "\"$VERSION\"" ]]; then
     FOUND="true"
     break
