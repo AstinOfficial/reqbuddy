@@ -64,18 +64,27 @@ echo "⏳ Waiting for PyPI upload to confirm..."
 
 sleep 15  # Give GitHub Action time to start
 
+
 PYPI_CHECK_URL="https://pypi.org/pypi/reqbuddy/json"
 RETRIES=10
 FOUND="false"
 
 for i in $(seq 1 $RETRIES); do
   echo "🔍 Checking PyPI (attempt $i)..."
+
+  # Use jq for accurate JSON parsing
   VERSION_FOUND=$(curl -s "$PYPI_CHECK_URL" | jq -r --arg VERSION "$VERSION" '.releases[$VERSION] | if . then $VERSION else empty end')
-  echo "🔍 The Version Found : $VERSION_FOUND"
-  if [[ "$VERSION_FOUND" == "\"$VERSION\"" ]]; then
+
+  echo "🔍 Version found: '$VERSION_FOUND'"
+
+  if [[ "$VERSION_FOUND" == "$VERSION" ]]; then
+    echo "✅ Match: $VERSION_FOUND == $VERSION"
     FOUND="true"
     break
+  else
+    echo "❌ No match: $VERSION_FOUND != $VERSION"
   fi
+
   sleep 10
 done
 
